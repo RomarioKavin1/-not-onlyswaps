@@ -1,0 +1,19 @@
+{
+  "name": "proofswaps",
+  "version": "1.0.0",
+  "description": "Local development scripts for ProofSwaps",
+  "type": "module",
+  "scripts": {
+    "swap": "tsx swap.ts",
+    "dev": "tsx watch swap.ts"
+  },
+  "dependencies": {
+    "onlyswaps-js": "^1.0.0-rc5",
+    "viem": "^2.38.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.24",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  }
+}
