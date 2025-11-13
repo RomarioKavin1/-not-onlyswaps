@@ -1,0 +1,18 @@
+[agent]
+healthcheck_listen_addr = "0.0.0.0"
+healthcheck_port = 8081
+log_level = "debug"
+log_json = true
+
+[[networks]]
+chain_id = 31337
+rpc_url = "wss://blue.crevn.xyz"
+tokens = ["0x6b0fb8117c30b5ae16db76ab7a1f2bde9f7ed61b"]
+router_address = "0xa504fbff16352e397e3bc1459a284c4426c55787"
+
+[[networks]]
+chain_id = 31338
+rpc_url = "wss://green.crevn.xyz"
+tokens = ["0x6b0fb8117c30b5ae16db76ab7a1f2bde9f7ed61b"]
+router_address = "0xa504fbff16352e397e3bc1459a284c4426c55787"
+

@@ -20,10 +20,10 @@ const LOCAL_CHAIN_1 = defineChain({
   },
   rpcUrls: {
     default: {
-      http: ["http://localhost:31337"],
+      http: ["https://blue.crevn.xyz"],
     },
     public: {
-      http: ["http://localhost:31337"],
+      http: ["https://blue.crevn.xyz"],
     },
   },
 });
@@ -39,10 +39,10 @@ const LOCAL_CHAIN_2 = defineChain({
   },
   rpcUrls: {
     default: {
-      http: ["http://localhost:31338"],
+      http: ["https://green.crevn.xyz"],
     },
     public: {
-      http: ["http://localhost:31338"],
+      http: ["https://green.crevn.xyz"],
     },
   },
 });
@@ -57,7 +57,7 @@ const PRIVATE_KEY =
 
 // Fee API configuration - update this to point to your local solver API if available
 // For now, using a placeholder that you can replace
-const FEE_API_URL = "http://localhost:8080"; // Update with your local solver API
+const FEE_API_URL = "https://red.crevn.xyz"; // Update with your local solver API
 
 /**
  * Fetch recommended fees from local solver API or use manual values
@@ -158,7 +158,7 @@ async function mintFromFaucet(
     // Wait for transaction to be mined
     const publicClient = createPublicClient({
       chain: LOCAL_CHAIN_1,
-      transport: http("http://localhost:31337"),
+      transport: http("https://blue.crevn.xyz"),
     });
 
     const receipt = await publicClient.waitForTransactionReceipt({ hash });
@@ -215,7 +215,7 @@ async function isSwapFulfilled(
 ): Promise<boolean> {
   const publicClient = createPublicClient({
     chain: chainId === 31337 ? LOCAL_CHAIN_1 : LOCAL_CHAIN_2,
-    transport: http(`http://localhost:${chainId}`),
+    transport: chainId === 31337 ? http(`https://blue.crevn.xyz`) : http(`https://green.crevn.xyz`),
   });
 
   try {
@@ -250,7 +250,7 @@ async function waitForFulfillmentEvent(
 ): Promise<boolean> {
   const publicClient = createPublicClient({
     chain: LOCAL_CHAIN_2,
-    transport: http("http://localhost:31338"),
+    transport: http("https://green.crevn.xyz"),
   });
 
   console.log(
@@ -356,7 +356,7 @@ async function checkBalancesOnBothChains(
   // Check balance on source chain (31337)
   const sourceClient = createPublicClient({
     chain: LOCAL_CHAIN_1,
-    transport: http("http://localhost:31337"),
+    transport: http("https://blue.crevn.xyz"),
   });
 
   const sourceBalance = await checkBalance(
@@ -372,7 +372,7 @@ async function checkBalancesOnBothChains(
   // Check balance on destination chain (31338)
   const destClient = createPublicClient({
     chain: LOCAL_CHAIN_2,
-    transport: http("http://localhost:31338"),
+    transport: http("https://green.crevn.xyz"),
   });
 
   const destBalance = await checkBalance(destClient, tokenAddress, userAddress);
@@ -408,13 +408,13 @@ async function main() {
   // Create public client for Chain 1 (source chain)
   const publicClient = createPublicClient({
     chain: LOCAL_CHAIN_1,
-    transport: http("http://localhost:31337"),
+    transport: http("https://blue.crevn.xyz"),
   });
 
   // Create wallet client for Chain 1
   const walletClient = createWalletClient({
     chain: LOCAL_CHAIN_1,
-    transport: http("http://localhost:31337"),
+    transport: http("https://blue.crevn.xyz"),
     account,
   });
 
