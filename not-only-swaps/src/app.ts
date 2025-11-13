@@ -1,5 +1,6 @@
 import { Network } from './network.js';
 import { Solver } from './solver.js';
+import { SolverV2 } from './solver-v2.js';
 import { TradeExecutor } from './executor.js';
 import { BlockEvent } from './model.js';
 import NodeCache from 'node-cache';
@@ -8,14 +9,16 @@ export class App {
   /**
    * Start the main event loop
    */
-  static async start(networks: Map<number, Network>): Promise<void> {
+  static async start(networks: Map<number, Network>, useV2: boolean = true): Promise<void> {
     // Create block event streams from all networks
     const blockStreams = Array.from(networks.values()).map((network) =>
       network.subscribeBlocks()
     );
 
-    // Initialize solver
-    const solver = await Solver.from(networks);
+    // Initialize solver (use V2 by default, fallback to V1)
+    const solver = useV2 
+      ? await SolverV2.from(networks)
+      : await Solver.from(networks);
     const executor = new TradeExecutor(networks);
 
     // In-flight requests cache (30 second TTL)
@@ -35,7 +38,7 @@ export class App {
    */
   private static async mergeAndProcessBlocks(
     streams: Array<AsyncGenerator<BlockEvent>>,
-    solver: Solver,
+    solver: Solver | SolverV2,
     executor: TradeExecutor,
     inFlightRequests: NodeCache
   ): Promise<void> {

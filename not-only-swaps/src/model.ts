@@ -1,4 +1,4 @@
-import { Address, FixedBytes, Uint256 } from 'ethers';
+// Removed unused ethers imports
 
 export type RequestId = string; // 32-byte hex string (0x + 64 hex chars)
 
@@ -20,6 +20,28 @@ export interface SwapRequestParameters {
 export interface Transfer {
   requestId: RequestId;
   params: SwapRequestParameters;
+  conditions?: Condition[]; // Optional conditions for conditional execution
+  maxWaitTime?: number; // Maximum time to wait for conditions (ms)
+  priority?: number; // Execution priority (higher = more important)
+}
+
+/**
+ * Condition types for conditional execution
+ */
+export type ConditionType = 'price' | 'time' | 'balance' | 'custom';
+export type ConditionOperator = 'gt' | 'lt' | 'eq' | 'gte' | 'lte' | 'between';
+
+export interface Condition {
+  type: ConditionType;
+  operator: ConditionOperator;
+  params: Record<string, any>;
+}
+
+/**
+ * Extended transfer with conditions (for internal use)
+ */
+export interface ConditionalTransfer extends Transfer {
+  conditions: Condition[];
 }
 
 export interface ChainState {
