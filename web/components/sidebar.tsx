@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Sun, Moon, Monitor, Settings, ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { useState } from "react"
 
 export function Sidebar() {
@@ -12,37 +12,34 @@ export function Sidebar() {
 
   return (
     <div className="fixed left-0 top-0 h-screen w-64 bg-black border-r border-gray-800 flex flex-col p-6">
-      {/* Logo/Brand */}
-      <div className="mb-12">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-4 h-4 bg-gradient-to-br from-orange-500 to-orange-400 transform -rotate-45"></div>
-          <span className="text-white font-bold text-lg">swaps</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-gradient-to-br from-orange-500 to-orange-400 transform -rotate-45"></div>
-          <span className="text-white font-bold text-lg">policies</span>
-        </div>
-      </div>
-
       {/* Navigation Links */}
-      <nav className="space-y-4 flex-1">
+      <nav className="space-y-4 flex-1 font-bold">
         <Link
           href="/swaps"
           className={`flex items-center gap-2 px-4 py-2 rounded transition-colors ${
-            pathname === "/swaps" ? "text-orange-500" : "text-gray-400 hover:text-white"
+            pathname === "/swaps" ? "text-orange-500" : "text-gray-200 hover:text-white"
           }`}
         >
-          <div className="w-4 h-4 border-2 border-current transform -rotate-45"></div>
+          <div className="w-4 h-4 bg-gradient-to-br from-orange-500 to-orange-400 transform -rotate-45"></div>
           <span>swaps</span>
         </Link>
         <Link
           href="/policies"
           className={`flex items-center gap-2 px-4 py-2 rounded transition-colors ${
-            pathname === "/policies" ? "text-orange-500" : "text-gray-400 hover:text-white"
+            pathname === "/policies" ? "text-orange-500" : "text-gray-200 hover:text-white"
           }`}
         >
-          <div className="w-4 h-4 border-2 border-current transform -rotate-45"></div>
+          <div className="w-4 h-4 bg-gradient-to-br from-orange-500 to-orange-400 transform -rotate-45"></div>
           <span>policies</span>
+        </Link>
+        <Link
+          href="/why-us"
+          className={`flex items-center gap-2 px-4 py-2 rounded transition-colors ${
+            pathname === "/why-us" ? "text-orange-500" : "text-gray-200 hover:text-white"
+          }`}
+        >
+          <div className="w-4 h-4 bg-gradient-to-br from-orange-500 to-orange-400 transform -rotate-45"></div>
+          <span>why us</span>
         </Link>
       </nav>
 
@@ -77,9 +74,9 @@ export function Sidebar() {
       </div>
 
       {/* Connect Wallet Button */}
-      <Button className="w-full bg-orange-500 hover:bg-orange-600 text-black font-semibold py-6">
-        📱 Connect wallet
-      </Button>
+      <div className="w-full">
+        <ConnectButton />
+      </div>
 
       {/* Footer */}
       <div className="text-center text-gray-600 text-xs mt-6 pt-6 border-t border-gray-800">
